@@ -31,14 +31,19 @@ use std::path::PathBuf;
 ///
 /// 成功时返回加载的 `Config` 实例。
 pub fn load_or_create_config(config_path_override: Option<PathBuf>) -> Result<Config, confy::ConfyError> {
-    match config_path_override {
+    let mut config: Config = match config_path_override {
         // 如果提供了覆盖路径，使用 confy::load_path。
         // confy::load_path 也会在文件不存在时尝试创建默认文件。
         Some(path) => confy::load_path(path),
         // 如果没有提供覆盖路径，使用 confy::load 让它处理标准路径和文件名。
         None => confy::load("termichan", None), // "termichan" 是应用名称，None 使用默认文件名 "config.toml"
+    }?;
+
+    // If api_key not exists, try load from env var
+    if let None = config.llm.api_key {
+        config.llm.api_key = std::env::var("OPENAI_API_KEY").ok();
+        log::warn!("OPENAI_API_KEY isn't set in environment variable and config file.")
     }
-    // 注意：confy 0.5+ 会在 load/load_path 内部处理文件不存在的情况，
-    // 它会调用 Default::default() 并尝试写入文件。
-    // 我们不再需要手动检查 exists() 或写入文件。
+
+    Ok(config)
 }
