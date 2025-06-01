@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+toml = "0.8.22"
+confy = "0.6.1" # 用于简化配置加载
+dirs = "5.0.1"  # 用于查找用户配置目录 (HistoryConfig 默认路径需要)
