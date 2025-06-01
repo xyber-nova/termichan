@@ -1,0 +1,20 @@
+[workspace]
+members = [
+    "termichan",          # Main binary
+    "termichan-core",     # Core logic library
+    "termichan-llm",      # LLM interaction library
+    "termichan-executor", # Executor library
+    "termichan-config",   # Configuration library
+]
+resolver = "2" # Use the latest resolver
+
+# Default members to run with `cargo run`, `cargo test`, etc.
+default-members = ["termichan"]
+
+# Optional: Define shared workspace dependencies or profiles here
+# [workspace.dependencies]
+# tokio = { version = "1", features = ["full"] }
+
+# [profile.release]
+# lto = true
+# codegen-units = 1

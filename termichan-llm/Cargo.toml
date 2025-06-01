@@ -1,0 +1,11 @@
+[package]
+name = "termichan-llm"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+termichan-config = { path = "../termichan-config" }
+async-openai = { version = "0.20.0", features = ["rustls-tls"] } # OpenAI API Client
+serde = { version = "1.0", features = ["derive"] } # Still needed for config
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] } # Async runtime
+thiserror = "1.0" # For easier error handling
