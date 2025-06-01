@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+async-openai = "0.16.0"
+thiserror = "1.0"
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
+termichan-config = { path = "../termichan-config" }
